@@ -13,7 +13,7 @@ def env_variables():
     dir_path = path.dirname(path.realpath(__file__))
     environ["DIALOGFLOW_PROJECT_ID"] = "projo-qruhoy"
     environ["GOOGLE_APPLICATION_CREDENTIALS"] = path.join(dir_path, "Projo-5b58254183f8.json")
-    command = os.popen('echo $GOOGAUTH | base64 --decode > /app/Projo-5b58254183f8.json')
+    command = popen('echo $GOOGAUTH | base64 --decode > /app/Projo-5b58254183f8.json')
     return
 
 
