@@ -26,7 +26,7 @@ def webhook():
             "fulfillmentText": "Ok. Booking cancelled.",
         }
         return jsonify(reply)
-        
+
 
 @app.route('/send_message', methods=['POST'])
 def send_message():
