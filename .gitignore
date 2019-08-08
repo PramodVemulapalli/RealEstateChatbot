@@ -35,6 +35,7 @@ var/
 pip-log.txt
 pip-delete-this-directory.txt
 Projo-5b58254183f8.json
+scratch.py
 
 # Unit test / coverage reports
 htmlcov/

@@ -45,7 +45,7 @@ def getlatlngs(zippy):
     return nelat, nelng, swlat, swlng
 
 
-def geturlinfo(zippy, minprice, maxprice, nelat, nelng, swlat, swlng):
+def geturlinfo(zippy, minprice, maxprice, bedrooms, nelat, nelng, swlat, swlng):
     url_base = 'https://www.zillow.com/austin-tx-' + str(zippy)+ '/houses/3-_beds/?searchQueryState='
     url_data = """
     {
@@ -57,7 +57,7 @@ def geturlinfo(zippy, minprice, maxprice, nelat, nelng, swlat, swlng):
     "mapZoom":14,
     "filterState":{"price":{"min":""" + str(minprice) + ',"max":' + str(maxprice) + '},' + """
     "monthlyPayment":{"min":2209,"max":2946},
-    "beds":{"min":3},
+    "beds":{"min":""" + str(bedrooms) + """},
     "sqft":{"min":0,"max":2000},
     "isAuction":{"value":false},
     "isCondo":{"value":false},
@@ -69,7 +69,7 @@ def geturlinfo(zippy, minprice, maxprice, nelat, nelng, swlat, swlng):
 
     return url_base, url_data
 
-def get_url(zipcode, upperlimit):
+def get_url(zipcode, upperlimit, bedrooms):
     # Creating Zillow URL based on the filter.
 
     req_headers = get_reqheaders()
@@ -78,11 +78,12 @@ def get_url(zipcode, upperlimit):
     minprice = 200000
     maxprice = int(upperlimit)
     with requests.Session() as s:
-        url_base, url_data = geturlinfo(zippy, minprice, maxprice, nelat, nelng, swlat, swlng)
+        url_base, url_data = geturlinfo(zippy, minprice, maxprice, bedrooms, nelat, nelng, swlat, swlng)
         r = s.get(url_base+urllib.parse.quote(url_data), headers=req_headers)
         soup = BeautifulSoup(r.content, 'lxml')
         prices = soup.findAll('article', {'class': 'list-card'})
     lenofprices = len(prices)-1
+    print('len of prices = ' + str(lenofprices), file=sys.stdout)
     randhome = random.randint(0,lenofprices)
     return prices[randhome].find('a', {'class': 'list-card-link'})['href'], prices[randhome].find('img')['src']
 
@@ -93,9 +94,12 @@ class fromtheweb(object):
     def __init__(self):
         self.zipcode = 75039
         self.upperLimit = 200000
+        self.bedrooms = 1
     def setzipcode(self, myVar):
-        self.zipcode = myVar
+        self.zipcode = int(myVar)
     def setupperLimit(self, myVar):
-        self.upperLimit = myVar
+        self.upperLimit = int(myVar)
+    def setbedrooms(self, myVar):
+        self.bedrooms = int(myVar)
     def getresult(self):
-        return get_url(self.zipcode , self.upperLimit)
+        return get_url(self.zipcode , self.upperLimit, self.bedrooms)
