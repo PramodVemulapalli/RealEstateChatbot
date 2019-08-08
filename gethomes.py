@@ -82,8 +82,8 @@ def get_url(zipcode, upperlimit):
         r = s.get(url_base+urllib.parse.quote(url_data), headers=req_headers)
         soup = BeautifulSoup(r.content, 'lxml')
         prices = soup.findAll('article', {'class': 'list-card'})
-    lenofprices = len(prices)
-    randhome = random.randint(1,lenofprices)
+    lenofprices = len(prices)-1
+    randhome = random.randint(0,lenofprices)
     return prices[randhome].find('a', {'class': 'list-card-link'})['href'], prices[randhome].find('img')['src']
 
 
