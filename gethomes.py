@@ -7,7 +7,7 @@ import json
 import lxml
 import sys
 import os
-
+import random
 
 def get_headers():
     # Creating headers.
@@ -18,6 +18,7 @@ def get_headers():
                'upgrade-insecure-requests': '1',
                'user-agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.131 Safari/537.36'}
     return headers
+
 
 def get_reqheaders():
     req_headers = {
@@ -81,7 +82,9 @@ def get_url(zipcode, upperlimit):
         r = s.get(url_base+urllib.parse.quote(url_data), headers=req_headers)
         soup = BeautifulSoup(r.content, 'lxml')
         prices = soup.findAll('article', {'class': 'list-card'})
-    return prices[0].find('a', {'class': 'list-card-link'})['href']
+    lenofprices = len(prices)
+    randhome = random.randint(1,lenofprices)
+    return prices[randhome].find('a', {'class': 'list-card-link'})['href'], prices[randhome].find('img')['src']
 
 
 

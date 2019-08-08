@@ -19,16 +19,26 @@ def index():
 def webhook():
     data = request.get_json(silent=True)
     myStorage = gethomes.fromtheweb()
-    myStorage.setzipcode(data['queryResult']['outputContexts'][0]['parameters']['number'])
-    myStorage.setupperLimit(data['queryResult']['outputContexts'][0]['parameters']['unit-currency']['amount'])
-    #pdb.set_trace()
-    print(data, file=sys.stdout)
+    #print(data, file=sys.stdout);
+    #print(json.dumps(data, indent=2, sort_keys=True), file=sys.stdout)
+    myoutputcontexts=data['queryResult']['outputContexts'];
+    lenofmyoutputcontexts=len(myoutputcontexts)
+    #print(myoutputcontexts, file=sys.stdout)
+    #print('lenoflists: ' + str(lenofmyoutputcontexts), file=sys.stdout)
+    myStorage.setzipcode(myoutputcontexts[0]['parameters']['number'])
+    myStorage.setupperLimit(myoutputcontexts[0]['parameters']['unit-currency']['amount'])
+
+
     #data['queryResult']['outputContexts'][0]['parameters']['number']
     #data['queryResult']['outputContexts'][0]['parameters']['unit-currency']['amount']
     #print(data['queryResult']['outputContexts']['parameters']['geo-city'], file=sys.stdout)
     if data['queryResult']['action'] == 'Findhomes.Findhomes-yes':
         reply = {}
-        reply['fulfillmentText'] = "Ok. Tickets booked successfully again." + str(myStorage.getresult())
+        home_url, home_pic = myStorage.getresult()
+        reply['fulfillmentText'] = str(home_url);
+        reply['fulfillmentMessages'] = [{'card': {'title': 'cardtitle', 'subtitle': 'cardtext', 'imageUri': 'https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png'}}]
+        reply['fulfillmentMessages'][0]['card']['imageUri']=home_pic
+        #pdb.set_trace()
         return jsonify(reply)
 
     elif data['queryResult']['action'] == 'Findhomes.Findhomes-no':
