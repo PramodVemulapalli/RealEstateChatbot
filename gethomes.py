@@ -8,6 +8,7 @@ import lxml
 import sys
 import os
 import random
+import pdb
 
 def get_headers():
     # Creating headers.
@@ -69,9 +70,9 @@ def geturlinfo(zippy, minprice, maxprice, bedrooms, nelat, nelng, swlat, swlng):
 
     return url_base, url_data
 
-def get_url(zipcode, upperlimit, bedrooms):
+def get_home(zipcode, upperlimit, bedrooms):
     # Creating Zillow URL based on the filter.
-
+    rand_home = -1
     req_headers = get_reqheaders()
     zippy = int(zipcode)
     nelat, nelng, swlat, swlng = getlatlngs(zippy)
@@ -85,9 +86,139 @@ def get_url(zipcode, upperlimit, bedrooms):
     lenofprices = len(prices)-1
     print('len of prices = ' + str(lenofprices), file=sys.stdout)
     randhome = random.randint(0,lenofprices)
-    return prices[randhome].find('a', {'class': 'list-card-link'})['href'], prices[randhome].find('img')['src']
+    ahome = prices[randhome]
+    return ahome
 
 
+def get_url(zipcode, upperlimit, bedrooms):
+
+    ahome = get_home(zipcode, upperlimit, bedrooms)
+    return ahome.find('a', {'class': 'list-card-link'})['href'], ahome.find('img')['src']
+
+
+
+def get_homeinfo(homedata, checkstring):
+    checkflag=0;
+    for data in homedata:
+        if (checkflag == 1):
+            return data.text
+        if (data.text == checkstring):
+            checkflag = 1
+    return ''
+
+
+def get_homeanswer(homedata, replyquestion):
+
+    if replyquestion == "bedrooms" :
+        homeinfo = get_homeinfo(homedata, 'Bedrooms')
+        if (homeinfo != ''):
+            return "According to our information, the home has " + str(homeinfo) + " bedrooms"
+    elif replyquestion == "bathrooms" :
+        homeinfo = get_homeinfo(homedata, 'Bathrooms')
+        if (homeinfo != ''):
+            return "According to our information, the home has " + str(homeinfo) + " bathrooms"
+    elif replyquestion == "flooring" :
+        homeinfo = get_homeinfo(homedata, 'Flooring')
+        if (homeinfo != ''):
+            return "According to our information, the home has " + str(homeinfo) + " flooring"
+    elif replyquestion == "heating" :
+        homeinfo = get_homeinfo(homedata, 'Heating features')
+        if (homeinfo != ''):
+            return "According to our information, the home has " + str(homeinfo) + " heating"
+    elif replyquestion == "appliances" :
+        homeinfo = get_homeinfo(homedata, 'Appliances included in sale')
+        if (homeinfo != ''):
+            return "According to our information, " + str(homeinfo) + " are the appliances that are included in the sale"
+    elif replyquestion == "area" :
+        homeinfo = get_homeinfo(homedata, 'Total interior livable area')
+        if (homeinfo != ''):
+            return "According to our information, the home has " + str(homeinfo) + " of total interior livable area"
+    elif replyquestion == "parking" :
+        homeinfo = get_homeinfo(homedata, 'Parking features')
+        if (homeinfo != ''):
+            return "According to our information, the home has " + str(homeinfo) + " for parking"
+    elif replyquestion == "garage" :
+        homeinfo = get_homeinfo(homedata, 'Garage spaces')
+        if (homeinfo != ''):
+            return "According to our information, the home has " + str(homeinfo) + " garage spaces"
+    elif replyquestion == "stories" :
+        homeinfo = get_homeinfo(homedata, 'Stories')
+        if (homeinfo != ''):
+            return "According to our information, the home has " + str(homeinfo) + " stories"
+    elif replyquestion == "exterior" :
+        homeinfo = get_homeinfo(homedata, 'Exterior features')
+        if (homeinfo != ''):
+            return "According to our information, the home has " + str(homeinfo) + " exterior"
+    elif replyquestion == "fencing" :
+        homeinfo = get_homeinfo(homedata, 'Fencing')
+        if (homeinfo != ''):
+            return "According to our information, the home has " + str(homeinfo) + " fencing"
+    elif replyquestion == "lot" :
+        homeinfo = get_homeinfo(homedata, 'Lot size')
+        if (homeinfo != ''):
+            return "According to our information, the home has " + str(homeinfo) + " in terms of lot size"
+    elif replyquestion == "foundation" :
+        homeinfo = get_homeinfo(homedata, 'Foundation')
+        if (homeinfo != ''):
+            return "According to our information, the home has " + str(homeinfo) + " foundation"
+    elif replyquestion == "roof" :
+        homeinfo = get_homeinfo(homedata, 'Roof')
+        if (homeinfo != ''):
+            return "According to our information, the home has " + str(homeinfo) + " type of roof"
+    elif replyquestion == "year" :
+        homeinfo = get_homeinfo(homedata, 'Year built')
+        if (homeinfo != ''):
+            return "According to our information, the home was built in " + str(homeinfo)
+    elif replyquestion == "utilities" :
+        homeinfo = get_homeinfo(homedata, 'Utilities for property')
+        if (homeinfo != ''):
+            return "According to our information, the home has " + str(homeinfo) + " utilities"
+    elif replyquestion == "pets" :
+        homeinfo = get_homeinfo(homedata, 'Pets allowed')
+        if (homeinfo != ''):
+            return "Does the home allow pets ? " + str(homeinfo)
+    elif replyquestion == "HOA" :
+        homeinfo = get_homeinfo(homedata, 'HOA fee')
+        if (homeinfo != ''):
+            return "Does the home have a HOA fee ? " + str(homeinfo)
+    elif replyquestion == "tax" :
+        homeinfo = get_homeinfo(homedata, 'Annual tax amount')
+        if (homeinfo != ''):
+            return "According to our information, the annual tax amount for the home is  " + str(homeinfo)
+    elif replyquestion == "architecture" :
+        homeinfo = get_homeinfo(homedata, 'Architectural style')
+        if (homeinfo != ''):
+            return "According to our information, the architectural style of the home is " + str(homeinfo)
+    elif replyquestion == "county" :
+        homeinfo = get_homeinfo(homedata, 'County Or Parish')
+        if (homeinfo != ''):
+            return "According to our information, the home is in " + str(homeinfo) + " county"
+    elif replyquestion == "value" :
+        homeinfo = get_homeinfo(homedata, 'Tax assessed value')
+        if (homeinfo != ''):
+            return "According to our information, the home's tax assessed value is " + str(homeinfo)
+    elif replyquestion == "possession" :
+        homeinfo = get_homeinfo(homedata, 'Posession')
+        if (homeinfo != ''):
+            return "According to our information, the home has the possession type of " + str(homeinfo)
+    elif replyquestion == "country" :
+        homeinfo = get_homeinfo(homedata, 'Country')
+        if (homeinfo != ''):
+            return "According to our information, the home is in " + str(homeinfo)
+    else:
+        return "Sorry. We donot have any information about this in our records"
+
+    return "Sorry. We donot have any information about this in our records"
+
+def get_reply(zipcode, upperlimit, bedrooms, homeurl, replyquestion):
+
+    #ahome, randhome = get_home(zipcode, upperlimit, bedrooms, homeindex)
+    #ahomeurl = ahome.find('a', {'class': 'list-card-link'})['href']
+    with requests.Session() as s:
+        r2 = s.get(homeurl, headers=get_reqheaders())
+    soup2 = BeautifulSoup(r2.content, 'lxml')
+    homedata = soup2.findAll('td')
+    return get_homeanswer(homedata, replyquestion)
 
 # Example 2: class methods to store and retrieve properties
 class fromtheweb(object):
@@ -101,5 +232,9 @@ class fromtheweb(object):
         self.upperLimit = int(myVar)
     def setbedrooms(self, myVar):
         self.bedrooms = int(myVar)
+    def sethomeurl(self, myVar):
+        self.homeurl = str(myVar)
     def getresult(self):
         return get_url(self.zipcode , self.upperLimit, self.bedrooms)
+    def getreply(self, replyquestion):
+        return get_reply(self.zipcode , self.upperLimit, self.bedrooms, self.homeurl, replyquestion)
