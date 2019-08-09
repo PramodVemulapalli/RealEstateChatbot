@@ -1,4 +1,4 @@
-Project Projo
+## Project Projo
 
 Pramod’s implementation of a real estate chatbot in 3 days
 
@@ -7,7 +7,7 @@ The application is live ! You can text Projo at  **(234)-231-6345**
 Demo Video: [https://www.youtube.com/watch?v=napNTiaft8U](https://www.youtube.com/watch?v=napNTiaft8U)
 [![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/napNTiaft8U/0.jpg)](https://www.youtube.com/watch?v=napNTiaft8U)
 
-Architecture
+#### Architecture
 
 [![IMAGE ALT TEXT HERE](https://raw.githubusercontent.com/PramodVemulapalli/RealEstateChatbot/master/docs/Architecture.png)](https://raw.githubusercontent.com/PramodVemulapalli/RealEstateChatbot/master/docs/Architecture.png)
 
