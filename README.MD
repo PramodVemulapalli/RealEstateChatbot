@@ -21,3 +21,6 @@ The above code pertains to the flask server deployed in Heroku:
 
 
 ### Getting started
+
+*   Please use the following tutorial https://pybit.es/deploy-flask-heroku.html to deploy the flask server to heroku
+*   The Heroku server needs two environment variables GOOGAUTH and GOOGLEMAPSAPIKEY to be able to access Google Dialogflow and Googlemaps api. 
