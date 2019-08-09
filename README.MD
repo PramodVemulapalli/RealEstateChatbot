@@ -24,7 +24,7 @@ The above code pertains to the flask server deployed in Heroku:
 
 *   Please use the following tutorial https://pybit.es/deploy-flask-heroku.html to deploy the flask server to heroku
 *   The Heroku server needs two environment variables GOOGAUTH and GOOGLEMAPSAPIKEY to be able to access Google Dialogflow and Googlemaps api. The GOOGLEMAPSAPIKEY is a string that can be obtained as shown here https://developers.google.com/maps/documentation/javascript/get-api-key and the GOOGAUTH is a string that is the base64 encoding of the contents of the service account credentials json file that is obtained as shown here https://cloud.google.com/video-intelligence/docs/common/auth. Here is the documentation to set these variables in heroku https://devcenter.heroku.com/articles/config-vars.
-*   You can import from Google dialog flow project by using the /dialogflow/Projo.zip and importing it into a newly created agent in Google Dialogflow.
+*   You can import the Google Dialogflow project provided here /dialogflow/Projo.zip and import it into a newly created agent in Google Dialogflow.
 *   Please use this documentation to integrate Google Dialog flow with Twilio https://cloud.google.com/dialogflow/docs/integrations/twilio
 
 
