@@ -9,6 +9,8 @@ Demo Video: [https://www.youtube.com/watch?v=napNTiaft8U](https://www.youtube.co
 
 Architecture
 
+[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/napNTiaft8U/0.jpg)](https://www.youtube.com/watch?v=napNTiaft8U)
+
 The above code pertains to the flask server deployed in Heroku:
 
 *   Connectivity to Google dialogflow is implemented in index.py
