@@ -52,7 +52,7 @@ def webhook():
         reply = {}
         home_url, home_pic = myStorage.getresult()
         print(home_url, file=sys.stdout)
-        reply['fulfillmentText'] = str(home_url);
+        reply['fulfillmentText'] = str(home_url) + "  Say 'Show a different home' or ask questions about this home.";
         reply['fulfillmentMessages'] = [{'card': {'title': 'cardtitle', 'subtitle': 'cardtext', 'imageUri': 'https://assistant.google.com/static/images/molecule/Molecule-Formation-stop.png'}}]
         reply['fulfillmentMessages'][0]['card']['imageUri']=home_pic
         reply['outputContexts'] = [{"name": 'somename', "lifespanCount": 5, "parameters": { 'Homeurl' : '' }}]
