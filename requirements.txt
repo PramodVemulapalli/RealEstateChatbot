@@ -17,7 +17,7 @@ gunicorn==19.9.0
 idna==2.6
 itsdangerous==1.1.0
 Jinja2==2.10.1
-lxml==4.4.0
+lxml==4.6.3
 MarkupSafe==1.1.1
 ndg-httpsclient==0.5.1
 protobuf==3.9.1
